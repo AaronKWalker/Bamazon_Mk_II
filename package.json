@@ -1,0 +1,25 @@
+{
+  "name": "bamazon_mk_ii",
+  "version": "1.0.0",
+  "description": "An upgraded version of Bamazon (a Node.js \"Amazon-like\" store front",
+  "main": "bamazon.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AaronKWalker/Bamazon_Mk_II.git"
+  },
+  "author": "Aaron Walker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AaronKWalker/Bamazon_Mk_II/issues"
+  },
+  "homepage": "https://github.com/AaronKWalker/Bamazon_Mk_II#readme",
+  "dependencies": {
+    "chalk": "^2.1.0",
+    "cli-table": "^0.3.1",
+    "inquirer": "^3.3.0",
+    "mysql": "^2.15.0"
+  }
+}
