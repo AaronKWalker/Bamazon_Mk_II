@@ -21,20 +21,59 @@ function connectToDB(){
 
 //display the welcome/type of user screen
 function displayWelcome(){
+  console.log(chalk.yellow.bold(
+    "////////////////////////////////////////////////////////////////////////"
+  ));
+  console.log(chalk.blue.bold(
+    "||||||    ||||||||  ||      ||  ||||||||  ||||||||  ||||||||  ||      ||"
+  ));
+  console.log(chalk.blue.bold(
+    "||    ||  ||    ||  ||||  ||||  ||    ||        ||  ||    ||  ||||    ||"
+  ));
+  console.log(chalk.blue.bold(
+    "||    ||  ||    ||  ||  ||  ||  ||    ||        ||  ||    ||  ||  ||  ||"
+  ));
+  console.log(chalk.blue.bold(
+    "||||||    ||||||||  ||      ||  ||||||||    ||||    ||    ||  ||    ||||"
+  ));
+  console.log(chalk.blue.bold(
+    "||    ||  ||    ||  ||      ||  ||    ||  ||        ||    ||  ||      ||"
+  ));
+  console.log(chalk.blue.bold(
+    "||    ||  ||    ||  ||      ||  ||    ||  ||        ||    ||  ||      ||"
+  ));
+  console.log(chalk.blue.bold(
+    "||||||    ||    ||  ||      ||  ||    ||  |||||||   ||||||||  ||      ||"
+  ));
+  console.log(chalk.yellow.bold(
+    "////////////////////////////////////////////////////////////////////////"
+  ));
   inquirer.prompt([
     {
       name: 'userChoice',
-      type: 'list',
+      type: 'rawlist',
       message: 'Please select your level of access',
       choices: ['Customer', 'Manager', 'Supervisor']
     }
   ]).then(function(answer){
-    console.log(answer);
+    switch (answer.userChoice) {
+      case 'Customer':
+        customer();
+        break;
+      case 'Manager':
+        manager();
+        break;
+      case 'Supervisor':
+        supervisor();
+        break;
+    }
   });
 }
 
 //IF costumer//////////////////
-
+function customer(){
+  console.log('customer');
+}
   //diplay items available
 
   //take user input
@@ -46,7 +85,9 @@ function displayWelcome(){
   //diplay items again
 
 //IF manager//////////////////
-
+function manager(){
+  console.log('manager');
+}
   //display options
 
   //take user input
@@ -55,7 +96,9 @@ function displayWelcome(){
 
 
 //IF supervisor//////////////////
-
+function supervisor(){
+  console.log('supervisor');
+}
   //display options
 
 connectToDB();
