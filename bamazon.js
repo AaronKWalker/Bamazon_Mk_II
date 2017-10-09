@@ -132,48 +132,80 @@ function manageInv(input){
       ]).then(function(answer){
         if (answer.validation) {
           let index = parseInt(answer.userChoice) - 1;
-          let newAmount = parseInt(results[index].stock_quantity + answer.amount);
-          connection.query('UPDATE inventory SET ? WHERE ?'[
+          let newAmount = parseInt(results[index].stock_quantity) + parseInt(answer.amount);
+          connection.query('UPDATE inventory SET ? WHERE ?', [
             {
               stock_quantity: newAmount
             }, {
               item_id: answer.userChoice
             }
-          ],function(error,){
+          ],function(error){
             if (error) throw error;
-            manager();
+            connection.query('SELECT * FROM  inventory WHERE ?', [
+              {
+                item_id: answer.userChoice
+              }
+            ] ,function(err, res){
+              if (err) throw err;
+              let table2 = new Table({
+                head: ['No.', 'Product', 'Department', 'Price', 'Stock Quanity'],
+                colWidths: [5, 15, 15, 10, 15]
+              });
+              for (let i = 0; i < res.length; i++) {
+                table2.push(
+                  [res[i].item_id, res[i].product_name, res[i].department_name, res[i].price, res[i].stock_quantity, res[i].product_sales]
+                );
+              }
+              console.log(chalk.white.bgGreen.bold('Success! Here is the updated inventory'));
+              console.log(table2.toString());
+              manager();
+            });
           })
+
         } else {
           manageInv('increase');
         }
       });
     });
-
   }
 
   if (input === 'add') {
     inquirer.prompt([
       {
-        type: 'rawlist',
-        name: 'userChoice',
-        message: 'Which item do you want to increase?',
-        choices: function(){
-          let choiceArr = [];
-          connection.query('SELECT * FROM  inventory', function(error, results){
-            if (error) throw error;
-            for (var i = 0; i < results.length; i++) {
-              choiceArr.push(results[i].product_name);
-              return choiceArr;
-            }
-          });
-          return choiceArr;
-        }
+        type: 'input',
+        name: 'productName',
+        message: 'What is the new product called?'
+      }, {
+        type: 'input',
+        name: 'departmentName',
+        message: 'What department does it belong to?'
+      },{
+        type: 'input',
+        name: 'productCost',
+        message: 'How much does it cost?'
+      }, {
+        type: 'input',
+        name: 'stockQuantity',
+        message: 'How many?'
+      }, {
+        type: 'confirm',
+        name: 'confirmation',
+        message: 'Are you sure?'
       }
     ]).then(function(answer){
-
+      if (answer.confirmation) {
+        var queryString = 'INSERT INTO inventory (product_name, department_name, price, stock_quantity) VALUES ("' + answer.productName + '", "' + answer.departmentName + '", ' + answer.productCost + ', ' +  answer.stockQuantity + ')';
+        connection.query(queryString, function(err){
+          if (err) throw err;
+          manager();
+        });
+      } else {
+        manageInv('add')
+      }
     });
   }
 }
+
 
 
 //display the welcome/type of user screen
