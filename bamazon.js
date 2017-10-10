@@ -34,7 +34,6 @@ function updateInventory(param1, param2){
     }
   ], function(err){
     if (err) throw err;
-    console.log('db updated');
   });
 }
 
