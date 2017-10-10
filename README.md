@@ -1,11 +1,11 @@
 # Bamazon_Mk_II
-### An upgraded version of Bamazon (a Node.js "Amazon-like" store front)
+###### An upgraded version of Bamazon (a Node.js "Amazon-like" store front)
 ---
 This application utilizes Node.js, MySQL, and a local database to simulate a digital storefront (of sorts)
 ---
 ## Bamazon MK II Setup
 
-#### Step 1
+##### Step 1
 
 * Install the npm modules needed by navigating to the Bamazon Mk II directory within the terminal and type `npm i` (see below)
 
@@ -17,10 +17,12 @@ This application utilizes Node.js, MySQL, and a local database to simulate a dig
 * inquirer
 * mysql
 
-#### Step 2
+##### Step 2
 
 * Run the bamazon.js file using the command `node bamazon.js`
 * *NOTE:* I have **nodemon** installed so please feel free to use it if you do as well
+
+## Bamazon MK II Usage
 
 ![screenshot](images/screenShot01.png)
 
@@ -29,7 +31,7 @@ This application utilizes Node.js, MySQL, and a local database to simulate a dig
   * Manager
   * Supervisor (still under construction)
 
-#### Choosing **Customer**
+##### Choosing **Customer**
 
 * Choosing **Customer** will bring up the following table:
 
@@ -46,7 +48,7 @@ This application utilizes Node.js, MySQL, and a local database to simulate a dig
 * Selecting **No** will bring you back to welcome.
 
 
-#### Choosing **Manager**
+##### Choosing **Manager**
 
 ![screenshot](images/screenShot05.png)
 
@@ -67,6 +69,6 @@ This application utilizes Node.js, MySQL, and a local database to simulate a dig
 **Add New Product** allows you to put a brand new item into the inventory.
 
 
-#### Choosing **Supervisor**
+##### Choosing **Supervisor**
 
 * **COMING SOON**
