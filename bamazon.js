@@ -343,7 +343,8 @@ function manager(){
 
 //IF supervisor//////////////////
 function supervisor(){
-  console.log('supervisor');
+  console.log(chalk.bgRed.white.bold('SUPERVISOR PERMISSIONS COMING SOON!'));
+  displayWelcome();
 }
   //display options
 
