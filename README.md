@@ -1,8 +1,7 @@
 # Bamazon_Mk_II
-###### An upgraded version of Bamazon (a Node.js "Amazon-like" store front)
+###### An upgraded version of Bamazon (a "Amazon-like" store front) that utilizes Node.js, MySQL, and a local database
 ---
-This application utilizes Node.js, MySQL, and a local database to simulate a digital storefront (of sorts)
----
+
 ## Bamazon MK II Setup
 
 ##### Step 1
