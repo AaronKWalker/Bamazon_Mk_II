@@ -226,11 +226,34 @@ function salesByDept(){
 
 
 function createDept(){
- console.log('!!!@@!!!');
+ inquirer.prompt([
+   {
+     type: 'input',
+     name: 'departmentName',
+     message: 'What is the name of the new department?'
+   }, {
+     type: 'input',
+     name: 'overheadCosts',
+     message: 'What is the overhead costs of the new department?'
+   }, {
+     type: 'confirm',
+     name: 'confirmation',
+     message: 'Are you sure?'
+   }
+ ]).then(function(answer){
+   if (answer.confirmation) {
+     var queryString = 'INSERT INTO departments (department_name, over_head_costs) VALUES ("' + answer.departmentName + '", "' + answer.overheadCosts + '")';
+     connection.query(queryString, function(err){
+       if (err) throw err;
+       supervisor();
+   } else {
+     supervisor();
+   }
+ });
 }
 
 
-
+//======[INTERFACE FUNCTIONS]======
 
 //display the welcome/type of user screen
 function displayWelcome(){
