@@ -25,12 +25,13 @@ function connectToDB(){
 }
 
 
-function updateInventory(param1, param2){
+function updateInventory(param1, param2, param3){
   connection.query('UPDATE inventory SET ? WHERE ?', [
     {
-      stock_quantity: param1
+      stock_quantity: param1,
+      product_sales: param2
     }, {
-      item_id: param2
+      item_id: param3
     }
   ], function(err){
     if (err) throw err;
@@ -205,6 +206,30 @@ function manageInv(input){
   }
 }
 
+function salesByDept(){
+  connection.query('SELECT d.department_id, d.department_name, d.over_head_costs, SUM(i.product_sales) as product_sales, d.over_head_costs - i.product_sales as total_profit FROM inventory i JOIN departments d ON d.department_name=i.department_name GROUP BY i.department_name ORDER BY d.department_id',
+  function(error, results){
+    if (error) throw error;
+    let table = new Table({
+      head: ['No.', 'Department', 'Overhead Costs', 'Product Sales', 'Total Profit'],
+      colWidths: [5, 20, 20, 20, 20]
+    });
+    for (let i = 0; i < results.length; i++) {
+      table.push(
+        [results[i].department_id, results[i].department_name, results[i].over_head_costs, results[i].over_head_costs, results[i].total_profit]
+      );
+    }
+    console.log(table.toString());
+    supervisor();
+  });
+}
+
+
+function createDept(){
+ console.log('!!!@@!!!');
+}
+
+
 
 
 //display the welcome/type of user screen
@@ -296,7 +321,8 @@ function customer(){
         customer();
       } else {
         var newAmount = parseInt(results[itemIndex].stock_quantity - answer.amount);
-        updateInventory(newAmount, answer.userChoice);
+        var totalSale = parseInt(answer.amount) * parseInt(results[itemIndex].price) + parseInt(results[itemIndex].product_sales);
+        updateInventory(newAmount, totalSale, answer.userChoice);
         answer.item = results[itemIndex].product_name;
         answer.cost = parseInt(results[itemIndex].price * answer.amount);
       }
@@ -342,8 +368,26 @@ function manager(){
 
 //IF supervisor//////////////////
 function supervisor(){
-  console.log(chalk.bgRed.white.bold('SUPERVISOR PERMISSIONS COMING SOON!'));
-  displayWelcome();
+  inquirer.prompt([
+    {
+      type: 'rawlist',
+      name: 'userChoice',
+      message: 'Please select an option',
+      choices: ['View Product Sales by Department', 'Create New Department', 'Go Back']
+    }
+  ]).then(function(answer){
+    switch (answer.userChoice) {
+      case 'View Product Sales by Department':
+        salesByDept();
+        break;
+      case 'Create New Department':
+        createDept();
+        break;
+      case 'Go Back':
+        displayWelcome();
+        break;
+    }
+  });
 }
   //display options
 
